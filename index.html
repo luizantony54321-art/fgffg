@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Loja virtual de peças e acessórios para computadores.">
+  <title>PC Neon - Peças para Computadores</title>
+
+  <style>
+    :root {
+      --fundo: #080a16;
+      --painel: #12162a;
+      --painel-claro: #1a2040;
+      --roxo: #8b5cf6;
+      --rosa: #ff2ea6;
+      --ciano: #00e5ff;
+      --verde: #3cff90;
+      --amarelo: #ffd43b;
+      --branco: #f8faff;
+      --cinza: #aab2d5;
+      --perigo: #ff496c;
+      --sombra: 0 15px 45px rgba(0, 0, 0, 0.35);
+      --borda: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--branco);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.2), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(0, 229, 255, 0.15), transparent 25%),
+        var(--fundo);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    .cabecalho {
+      position: sticky;
+      z-index: 50;
+      top: 0;
+      border-bottom: var(--borda);
+      background: rgba(8, 10, 22, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .topo {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo {
+      color: var(--branco);
+      font-size: 1.7rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--ciano);
+      text-shadow: 0 0 18px rgba(0, 229, 255, 0.8);
+    }
+
+    .navegacao {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-left: auto;
+    }
+
+    .nav-link {
+      padding: 11px 13px;
+      border-radius: 12px;
+      color: var(--cinza);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .nav-link:hover,
+    .nav-link.ativo {
+      color: var(--branco);
+      background: linear-gradient(135deg, var(--roxo), var(--rosa));
+      box-shadow: 0 7px 22px rgba(255, 46, 166, 0.25);
+    }
+
+    .botao-carrinho {
+      position: relative;
+      min-width: 49px;
+      padding: 11px 14px;
+      border: 1px solid rgba(0, 229, 255, 0.45);
+      border-radius: 13px;
+      color: var(--branco);
+      background: rgba(0, 229, 255, 0.09);
+      cursor: pointer;
+    }
+
+    .contador {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      min-width: 23px;
+      min-height: 23px;
+      padding: 3px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #080a16;
+      background: var(--amarelo);
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+
+    .menu-mobile {
+      display: none;
+      padding: 10px 12px;
+      border: var(--borda);
+      border-radius: 10px;
+      color: white;
+      background: var(--painel);
+      cursor: pointer;
+    }
+
+    .pagina {
+      min-height: 70vh;
+    }
+
+    .secao {
+      padding: 68px 0;
+    }
+
+    .titulo-secao {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
+    }
+
+    .titulo-secao span,
+    .gradiente {
+      color: transparent;
+      background: linear-gradient(90deg, var(--ciano), var(--rosa), var(--amarelo));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .subtitulo {
+      max-width: 680px;
+      margin-bottom: 34px;
+      color: var(--cinza);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .hero {
+      min-height: 680px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 55px;
+      padding: 72px 0;
+    }
+
+    .selo {
+      width: max-content;
+      margin-bottom: 22px;
+      padding: 9px 15px;
+      border: 1px solid rgba(60, 255, 144, 0.35);
+      border-radius: 999px;
+      color: var(--verde);
+      background: rgba(60, 255, 144, 0.08);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .hero h1 {
+      max-width: 690px;
+      margin-bottom: 22px;
+      font-size: clamp(3rem, 7vw, 6.3rem);
+      line-height: 0.95;
+      letter-spacing: -4px;
+    }
+
+    .hero p {
+      max-width: 630px;
+      color: var(--cinza);
+      font-size: 1.12rem;
+      line-height: 1.75;
+    }
+
+    .acoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .botao {
+      padding: 14px 22px;
+      border: 0;
+      border-radius: 13px;
+      color: white;
+      background: linear-gradient(135deg, var(--roxo), var(--rosa));
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .botao:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(255, 46, 166, 0.3);
+    }
+
+    .botao.secundario {
+      border: 1px solid rgba(0, 229, 255, 0.45);
+      color: var(--ciano);
+      background: rgba(0, 229, 255, 0.08);
+    }
+
+    .botao.perigo {
+      background: var(--perigo);
+    }
+
+    .hero-imagem {
+      position: relative;
+    }
+
+    .hero-imagem::before {
+      position: absolute;
+      z-index: -1;
+      inset: 10%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--roxo), var(--ciano));
+      filter: blur(70px);
+      opacity: 0.55;
+      content: "";
+    }
+
+    .hero-imagem img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      border-radius: 35px 8px 35px 8px;
+      box-shadow: var(--sombra);
+    }
+
+    .beneficios {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding-bottom: 65px;
+    }
+
+    .beneficio,
+    .card-info {
+      padding: 25px;
+      border: var(--borda);
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(26, 32, 64, 0.9), rgba(18, 22, 42, 0.9));
+      box-shadow: var(--sombra);
+    }
+
+    .beneficio strong {
+      display: block;
+      margin: 10px 0 7px;
+      color: var(--ciano);
+    }
+
+    .beneficio p,
+    .card-info p {
+      color: var(--cinza);
+      line-height: 1.6;
+    }
+
+    .grade-produtos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .produto {
+      overflow: hidden;
+      border: var(--borda);
+      border-radius: 22px;
+      background: var(--painel);
+      box-shadow: var(--sombra);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .produto:hover {
+      transform: translateY(-7px);
+      border-color: rgba(0, 229, 255, 0.55);
+    }
+
+    .produto-imagem {
+      position: relative;
+      height: 235px;
+      overflow: hidden;
+      background: #e9ecf3;
+    }
+
+    .produto-imagem img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s;
+    }
+
+    .produto:hover img {
+      transform: scale(1.07);
+    }
+
+    .etiqueta {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: #080a16;
+      background: var(--amarelo);
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+
+    .produto-conteudo {
+      padding: 21px;
+    }
+
+    .categoria {
+      color: var(--rosa);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .produto h3 {
+      min-height: 48px;
+      margin: 9px 0;
+      font-size: 1.15rem;
+      line-height: 1.35;
+    }
+
+    .produto p {
+      min-height: 42px;
+      color: var(--cinza);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .preco-antigo {
+      margin-top: 15px;
+      color: #7f87a9;
+      font-size: 0.8rem;
+      text-decoration: line-through;
+    }
+
+    .preco {
+      margin: 3px 0 15px;
+      color: var(--verde);
+      font-size: 1.65rem;
+      font-weight: 900;
+    }
+
+    .produto .botao {
+      width: 100%;
+    }
+
+    .filtros {
+      display: grid;
+      grid-template-columns: 1fr 230px;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .campo {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      outline: none;
+      color: var(--branco);
+      background: var(--painel);
+    }
+
+    .campo:focus {
+      border-color: var(--ciano);
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+    }
+
+    select.campo option {
+      background: var(--painel);
+    }
+
+    .grade-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card-info h3 {
+      margin-bottom: 12px;
+      color: var(--ciano);
+    }
+
+    .contato-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 30px;
+    }
+
+    .formulario {
+      display: grid;
+      gap: 15px;
+      padding: 28px;
+      border: var(--borda);
+      border-radius: 22px;
+      background: var(--painel);
+    }
+
+    textarea.campo {
+      min-height: 135px;
+      resize: vertical;
+    }
+
+    .rodape {
+      margin-top: 30px;
+      padding: 35px 0;
+      border-top: var(--borda);
+      color: var(--cinza);
+      text-align: center;
+    }
+
+    .fundo-modal {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .carrinho {
+      width: min(620px, 100%);
+      max-height: 86vh;
+      overflow: auto;
+      padding: 27px;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      border-radius: 22px;
+      background: var(--painel);
+      box-shadow: var(--sombra);
+    }
+
+    .carrinho-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .fechar {
+      border: 0;
+      color: white;
+      background: none;
+      font-size: 1.7rem;
+      cursor: pointer;
+    }
+
+    .item-carrinho {
+      display: grid;
+      grid-template-columns: 65px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: var(--borda);
+    }
+
+    .item-carrinho img {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .item-carrinho small {
+      color: var(--cinza);
+    }
+
+    .remover {
+      border: 0;
+      color: var(--perigo);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin: 24px 0;
+      color: var(--verde);
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .mensagem-vazia {
+      padding: 30px 0;
+      color: var(--cinza);
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 200;
+      right: 22px;
+      bottom: 22px;
+      max-width: 340px;
+      padding: 15px 19px;
+      border: 1px solid rgba(60, 255, 144, 0.4);
+      border-radius: 13px;
+      color: #08120c;
+      background: var(--verde);
+      box-shadow: var(--sombra);
+      font-weight: 900;
+      animation: entrada 0.25s ease;
+    }
+
+    @keyframes entrada {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 950px) {
+      .menu-mobile {
+        display: block;
+        margin-left: auto;
+      }
+
+      .navegacao {
+        position: absolute;
+        top: 76px;
+        right: 16px;
+        left: 16px;
+        display: none;
+        padding: 13px;
+        border: var(--borda);
+        border-radius: 16px;
+        background: var(--painel);
+        box-shadow: var(--sombra);
+      }
+
+      .navegacao.aberta {
+        display: grid;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-imagem img {
+        height: 400px;
+      }
+
+      .beneficios,
+      .grade-produtos {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grade-info,
+      .contato-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .logo {
+        font-size: 1.4rem;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 54px 0;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero-imagem img {
+        height: 310px;
+      }
+
+      .beneficios,
+      .grade-produtos,
+      .filtros {
+        grid-template-columns: 1fr;
+      }
+
+      .secao {
+        padding: 50px 0;
+      }
+
+      .item-carrinho {
+        grid-template-columns: 54px 1fr;
+      }
+
+      .item-carrinho .remover {
+        grid-column: 2;
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="cabecalho">
+    <div class="container topo">
+      <a class="logo" href="#" data-pagina="inicio">PC<span>NEON</span></a>
+
+      <button class="menu-mobile" id="botao-menu" aria-label="Abrir menu">☰</button>
+
+      <nav class="navegacao" id="navegacao">
+        <a class="nav-link ativo" href="#" data-pagina="inicio">Início</a>
+        <a class="nav-link" href="#" data-pagina="produtos">Produtos</a>
+        <a class="nav-link" href="#" data-pagina="sobre">Sobre</a>
+        <a class="nav-link" href="#" data-pagina="contato">Contato</a>
+      </nav>
+
+      <button class="botao-carrinho" id="abrir-carrinho" aria-label="Abrir carrinho">
+        🛒
+        <span class="contador" id="contador">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="pagina" id="pagina-inicio">
+      <div class="container hero">
+        <div>
+          <div class="selo">⚡ Tecnologia, potência e preços incríveis</div>
+          <h1>Monte seu PC dos <span class="gradiente">sonhos.</span></h1>
+          <p>
+            Processadores, placas de vídeo, memórias, SSDs e periféricos para
+            transformar sua máquina em uma verdadeira estação de alto desempenho.
+          </p>
+
+          <div class="acoes">
+            <button class="botao" data-ir="produtos">Ver produtos</button>
+            <button class="botao secundario" data-ir="sobre">Conhecer a loja</button>
+          </div>
+        </div>
+
+        <div class="hero-imagem">
+          <img
+            src="[images.unsplash.com](https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=1200&q=85)"
+            alt="Computador gamer com iluminação colorida"
+          >
+        </div>
+      </div>
+
+      <div class="container beneficios">
+        <article class="beneficio">
+          <span>🚚</span>
+          <strong>Entrega nacional</strong>
+          <p>Envio rápido e seguro para todo o Brasil.</p>
+        </article>
+
+        <article class="beneficio">
+          <span>🛡️</span>
+          <strong>Garantia</strong>
+          <p>Produtos selecionados e garantia de fábrica.</p>
+        </article>
+
+        <article class="beneficio">
+          <span>💳</span>
+          <strong>Até 12x</strong>
+          <p>Parcele suas compras no cartão de crédito.</p>
+        </article>
+
+        <article class="beneficio">
+          <span>💬</span>
+          <strong>Suporte técnico</strong>
+          <p>Ajuda para escolher peças compatíveis.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="pagina oculto" id="pagina-produtos">
+      <div class="container secao">
+        <h2 class="titulo-secao">Nossos <span>produtos</span></h2>
+        <p class="subtitulo">
+          Encontre componentes para montar, melhorar ou personalizar o seu computador.
+        </p>
+
+        <div class="filtros">
+          <input
+            class="campo"
+            id="busca"
+            type="search"
+            placeholder="Pesquisar por nome ou categoria..."
+          >
+
+          <select class="campo" id="filtro-categoria">
+            <option value="todos">Todas as categorias</option>
+            <option value="Processador">Processadores</option>
+            <option value="Placa de vídeo">Placas de vídeo</option>
+            <option value="Memória">Memórias</option>
+            <option value="Armazenamento">Armazenamento</option>
+            <option value="Placa-mãe">Placas-mãe</option>
+            <option value="Fonte">Fontes</option>
+          </select>
+        </div>
+
+        <div class="grade-produtos" id="lista-produtos"></div>
+      </div>
+    </section>
+
+    <section class="pagina oculto" id="pagina-sobre">
+      <div class="container secao">
+        <h2 class="titulo-secao">Sobre a <span>PC Neon</span></h2>
+        <p class="subtitulo">
+          Somos uma loja especializada em componentes para computadores,
+          oferecendo tecnologia, atendimento e segurança em cada compra.
+        </p>
+
+        <div class="grade-info">
+          <article class="card-info">
+            <h3>Nossa missão</h3>
+            <p>
+              Facilitar o acesso a componentes de qualidade para gamers,
+              profissionais, criadores e apaixonados por tecnologia.
+            </p>
+          </article>
+
+          <article class="card-info">
+            <h3>Compatibilidade</h3>
+            <p>
+              Ajudamos você a combinar processador, placa-mãe, memória, fonte
+              e placa de vídeo sem complicações.
+            </p>
+          </article>
+
+          <article class="card-info">
+            <h3>Compra segura</h3>
+            <p>
+              Trabalhamos com processos transparentes, proteção de dados e
+              produtos cuidadosamente selecionados.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pagina oculto" id="pagina-contato">
+      <div class="container secao">
+        <h2 class="titulo-secao">Fale <span>conosco</span></h2>
+        <p class="subtitulo">
+          Precisa de ajuda para montar seu computador? Envie sua mensagem.
+        </p>
+
+        <div class="contato-layout">
+          <div class="card-info">
+            <h3>Atendimento</h3>
+            <p><strong>E-mail:</strong> contato@pcneon.com.br</p>
+            <p><strong>Telefone:</strong> (11) 4000-2026</p>
+            <p><strong>Horário:</strong> Segunda a sábado, das 9h às 18h</p>
+          </div>
+
+          <form class="formulario" id="formulario-contato">
+            <input class="campo" type="text" id="nome" placeholder="Seu nome" required>
+            <input class="campo" type="email" id="email" placeholder="Seu e-mail" required>
+
+            <select class="campo" id="assunto" required>
+              <option value="">Selecione o assunto</option>
+              <option>Dúvida sobre produto</option>
+              <option>Compatibilidade de peças</option>
+              <option>Pedido e entrega</option>
+              <option>Outros</option>
+            </select>
+
+            <textarea
+              class="campo"
+              id="mensagem"
+              placeholder="Escreva sua mensagem"
+              required
+            ></textarea>
+
+            <button class="botao" type="submit">Enviar mensagem</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>© 2026 PC Neon. Tecnologia para elevar sua máquina.</p>
+    </div>
+  </footer>
+
+  <div class="fundo-modal oculto" id="modal-carrinho">
+    <section class="carrinho" role="dialog" aria-modal="true" aria-label="Carrinho de compras">
+      <div class="carrinho-topo">
+        <h2>Seu carrinho</h2>
+        <button class="fechar" id="fechar-carrinho" aria-label="Fechar carrinho">×</button>
+      </div>
+
+      <div id="itens-carrinho"></div>
+
+      <div class="total">
+        <span>Total</span>
+        <span id="total-carrinho">R$ 0,00</span>
+      </div>
+
+      <button class="botao" id="finalizar-compra">Finalizar compra</button>
+      <button class="botao perigo" id="limpar-carrinho">Limpar carrinho</button>
+    </section>
+  </div>
+
+  <div class="toast oculto" id="toast"></div>
+
+  <script>
+    const produtos = [
+      {
+        id: 1,
+        nome: "Processador Ryzen 7 7800X3D",
+        categoria: "Processador",
+        descricao: "8 núcleos, 16 threads e desempenho extremo para jogos.",
+        preco: 2599.90,
+        antigo: 2899.90,
+        imagem: "[images.unsplash.com](https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=900&q=80)",
+        etiqueta: "Mais vendido"
+      },
+      {
+        id: 2,
+        nome: "Placa de Vídeo RTX Gaming",
+        categoria: "Placa de vídeo",
+        descricao: "Alto desempenho para jogos, criação e inteligência artificial.",
+        preco: 3899.90,
+        antigo: 4299.90,
+        imagem: "[images.unsplash.com](https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=900&q=80)",
+        etiqueta: "Oferta"
+      },
+      {
+        id: 3,
+        nome: "Memória RGB 32 GB DDR5",
+        categoria: "Memória",
+        descricao: "Kit de alta velocidade com iluminação RGB personalizável.",
+        preco: 729.90,
+        antigo: 849.90,
+        imagem: "[images.unsplash.com](https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=900&q=80)",
+        etiqueta: "Novidade"
+      },
+      {
+        id: 4,
+        nome: "SSD NVMe 2 TB",
+        categoria: "Armazenamento",
+        descricao: "Carregamentos rápidos e amplo espaço para jogos e projetos.",
+        preco: 899.90,
+        antigo: 1049.90,
+        imagem: "[images.unsplash.com](https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=900&q=80)",
+        etiqueta: "Rápido"
+      },
+      {
+        id: 5,
+        nome: "Placa-mãe Gaming Wi-Fi",
+        categoria: "Placa-mãe",
+        descricao: "Conectividade moderna, Wi-Fi integrado e suporte a DDR5.",
+        preco: 1399.90,
+        antigo: 1599.90,
+        imagem: "[images.unsplash.com](https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80)",
+        etiqueta: "Premium"
+      },
+      {
+        id: 6,
+        nome: "Fonte Modular 850W",
+        categoria: "Fonte",
+        descricao: "Alta eficiência, cabos modulares e proteção completa.",
+        preco: 749.90,
+        antigo: 879.90,
+        imagem: "[images.unsplash.com](https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=900&q=80)",
+        etiqueta: "Confiável"
+      }
+    ];
+
+    let carrinho = JSON.parse(localStorage.getItem("pcNeonCarrinho")) || [];
+
+    const paginas = document.querySelectorAll(".pagina");
+    const links = document.querySelectorAll("[data-pagina]");
+    const listaProdutos = document.getElementById("lista-produtos");
+    const modalCarrinho = document.getElementById("modal-carrinho");
+    const navegacao = document.getElementById("navegacao");
+
+    function moeda(valor) {
+      return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function navegar(nome) {
+      paginas.forEach((pagina) => pagina.classList.add("oculto"));
+      document.getElementById(`pagina-${nome}`).classList.remove("oculto");
+
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.classList.toggle("ativo", link.dataset.pagina === nome);
+      });
+
+      navegacao.classList.remove("aberta");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    links.forEach((link) => {
+      link.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        navegar(link.dataset.pagina);
+      });
+    });
+
+    document.querySelectorAll("[data-ir]").forEach((botao) => {
+      botao.addEventListener("click", () => navegar(botao.dataset.ir));
+    });
+
+    document.getElementById("botao-menu").addEventListener("click", () => {
+      navegacao.classList.toggle("aberta");
+    });
+
+    function renderizarProdutos(lista = produtos) {
+      if (!lista.length) {
+        listaProdutos.innerHTML = `
+          <div class="card-info">
+            <h3>Nenhum produto encontrado</h3>
+            <p>Tente pesquisar outro nome ou selecionar outra categoria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listaProdutos.innerHTML = lista.map((produto) => `
+        <article class="produto">
+          <div class="produto-imagem">
+            <img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">
+            <span class="etiqueta">${produto.etiqueta}</span>
+          </div>
+
+          <div class="produto-conteudo">
+            <span class="categoria">${produto.categoria}</span>
+            <h3>${produto.nome}</h3>
+            <p>${produto.descricao}</p>
+            <div class="preco-antigo">${moeda(produto.antigo)}</div>
+            <div class="preco">${moeda(produto.preco)}</div>
+            <button class="botao" onclick="adicionarAoCarrinho(${produto.id})">
+              Adicionar ao carrinho
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function filtrarProdutos() {
+      const busca = document.getElementById("busca").value.toLowerCase().trim();
+      const categoria = document.getElementById("filtro-categoria").value;
+
+      const resultado = produtos.filter((produto) => {
+        const correspondeBusca =
+          produto.nome.toLowerCase().includes(busca) ||
+          produto.categoria.toLowerCase().includes(busca) ||
+          produto.descricao.toLowerCase().includes(busca);
+
+        const correspondeCategoria =
+          categoria === "todos" || produto.categoria === categoria;
+
+        return correspondeBusca && correspondeCategoria;
+      });
+
+      renderizarProdutos(resultado);
+    }
+
+    document.getElementById("busca").addEventListener("input", filtrarProdutos);
+    document.getElementById("filtro-categoria").addEventListener("change", filtrarProdutos);
+
+    function mostrarToast(texto) {
+      const toast = document.getElementById("toast");
+      toast.textContent = texto;
+      toast.classList.remove("oculto");
+
+      clearTimeout(window.tempoToast);
+      window.tempoToast = setTimeout(() => {
+        toast.classList.add("oculto");
+      }, 2500);
+    }
+
+    function salvarCarrinho() {
+      localStorage.setItem("pcNeonCarrinho", JSON.stringify(carrinho));
+      atualizarCarrinho();
+    }
+
+    function adicionarAoCarrinho(id) {
+      const item = carrinho.find((produto) => produto.id === id);
+
+      if (item) {
+        item.quantidade += 1;
+      } else {
+        const produto = produtos.find((produto) => produto.id === id);
+        carrinho.push({ ...produto, quantidade: 1 });
+      }
+
+      salvarCarrinho();
+      mostrarToast("Produto adicionado ao carrinho!");
+    }
+
+    function removerDoCarrinho(id) {
+      const item = carrinho.find((produto) => produto.id === id);
+
+      if (item && item.quantidade > 1) {
+        item.quantidade -= 1;
+      } else {
+        carrinho = carrinho.filter((produto) => produto.id !== id);
+      }
+
+      salvarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const quantidade = carrinho.reduce(
+        (total, produto) => total + produto.quantidade,
+        0
+      );
+
+      document.getElementById("contador").textContent = quantidade;
+
+      const itens = document.getElementById("itens-carrinho");
+
+      if (!carrinho.length) {
+        itens.innerHTML = `<p class="mensagem-vazia">Seu carrinho está vazio.</p>`;
+      } else {
+        itens.innerHTML = carrinho.map((produto) => `
+          <div class="item-carrinho">
+            <img src="${produto.imagem}" alt="${produto.nome}">
+            <div>
+              <strong>${produto.nome}</strong><br>
+              <small>${produto.quantidade} × ${moeda(produto.preco)}</small>
+            </div>
+            <button class="remover" onclick="removerDoCarrinho(${produto.id})">
+              Remover
+            </button>
+          </div>
+        `).join("");
+      }
+
+      const total = carrinho.reduce(
+        (soma, produto) => soma + produto.preco * produto.quantidade,
+        0
+      );
+
+      document.getElementById("total-carrinho").textContent = moeda(total);
+    }
+
+    document.getElementById("abrir-carrinho").addEventListener("click", () => {
+      modalCarrinho.classList.remove("oculto");
+    });
+
+    document.getElementById("fechar-carrinho").addEventListener("click", () => {
+      modalCarrinho.classList.add("oculto");
+    });
+
+    modalCarrinho.addEventListener("click", (evento) => {
+      if (evento.target === modalCarrinho) {
+        modalCarrinho.classList.add("oculto");
+      }
+    });
+
+    document.getElementById("limpar-carrinho").addEventListener("click", () => {
+      carrinho = [];
+      salvarCarrinho();
+      mostrarToast("Carrinho esvaziado.");
+    });
+
+    document.getElementById("finalizar-compra").addEventListener("click", () => {
+      if (!carrinho.length) {
+        mostrarToast("Adicione um produto antes de finalizar.");
+        return;
+      }
+
+      mostrarToast("Pedido simulado com sucesso!");
+      carrinho = [];
+      salvarCarrinho();
+
+      setTimeout(() => {
+        modalCarrinho.classList.add("oculto");
+      }, 900);
+    });
+
+    document.getElementById("formulario-contato").addEventListener("submit", (evento) => {
+      evento.preventDefault();
+      mostrarToast("Mensagem enviada com sucesso!");
+      evento.target.reset();
+    });
+
+    document.addEventListener("keydown", (evento) => {
+      if (evento.key === "Escape") {
+        modalCarrinho.classList.add("oculto");
+      }
+    });
+
+    renderizarProdutos();
+    atualizarCarrinho();
+  </script>
+</body>
+</html>
+  
+</body>
+</html>
